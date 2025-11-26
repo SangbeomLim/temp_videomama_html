@@ -1,0 +1,86 @@
+<!-- SA-V vs MA-V Comparison Section Content -->
+<div class="paper-container">
+    <button class="nav-floating-btn btn-left" onclick="navigateComparison(-1)">&#10094;</button>
+
+    <section class="compare-wrapper">
+        <div class="compare-row">
+            
+            <div class="video-item-group">
+            <div class="video-container">
+                <video class="video-layer" muted loop playsinline autoplay style="position: relative; z-index: 1;">
+                    <source src="videos/sav_039607_manual_0_rgb.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-caption">Input Video</div>
+            </div>
+
+            <div class="video-item-group" id="slider-container-a">
+            <div class="video-container with-slider">
+                <video class="video-back video-layer" muted loop playsinline>
+                    <source src="videos/sav_039607_manual_0_rgb.mp4" type="video/mp4"> 
+                </video>
+                <video class="video-front video-layer" muted loop playsinline>
+                    <source src="videos/sav_039607_manual_0_pred_alpha.mp4" type="video/mp4"> 
+                </video>
+                <div class="video-overlay"></div>
+                <div class="slider-ui">
+                    <div class="slider-line"></div>
+                    <div class="slider-handle"></div>
+                </div>
+                <div class="label-badge label-left">SA-V</div>
+                <div class="label-badge label-right">MA-V</div>
+                
+                <div class="slider-active-labels">
+                    <div class="active-label label-left" id="active-label-a-left">SA-V</div>
+                    <div class="active-label label-right" id="active-label-a-right">MA-V</div>
+                </div>
+
+            </div>
+            <div class="video-caption">Mask Comparison</div>
+            </div>
+            <div class="video-item-group" id="slider-container-b">
+            <div class="video-container with-slider">
+                <video class="video-back video-layer" muted loop playsinline>
+                    <source src="videos/sav_039607_manual_0_rgb.mp4" type="video/mp4"> 
+                </video>
+                <video class="video-front video-layer" muted loop playsinline>
+                    <source src="videos/sav_039607_manual_0_pred_alpha.mp4" type="video/mp4"> 
+                </video>
+                <div class="video-overlay"></div>
+
+                <div class="slider-ui">
+                    <div class="slider-line"></div>
+                    <div class="slider-handle"></div>
+                </div>
+
+                <div class="label-badge label-left">SA-V</div>
+                <div class="label-badge label-right">MA-V</div>
+
+                <div class="slider-active-labels">
+                    <div class="active-label label-left" id="active-label-a-left">SA-V</div>
+                    <div class="active-label label-right" id="active-label-a-right">MA-V</div>
+                </div>
+
+            </div>
+            <div class="video-caption">Composition</div>
+            </div>
+        </div>
+        <p class="caption">
+            <strong>Figure 1.</strong> Comparison of SA-V and MA-V. Click to pause and resume. 
+        </p>
+        <button class="nav-floating-btn btn-right" onclick="navigateComparison(1)">&#10095;</button>
+    </section>
+    <div class="gallery-title-container">
+        <h2 class="section-title">Choose a video</h2>
+    </div>
+    <section class="gallery-section">
+        <div class="gallery-grid" id="gallery-grid">
+            </div>
+
+        <div class="pagination-controls">
+            <button class="nav-btn" id="btn-prev" onclick="changePage(-1)">&#8249;</button>
+            <span class="page-info" id="page-info">Page 1 / 8</span>
+            <button class="nav-btn" id="btn-next" onclick="changePage(1)">&#8250;</button>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,53 @@
+<!-- In-the-Wild Results Section Content -->
+<div class="paper-container" style="margin-top: 60px;">
+    
+    <div class="bento-wrapper" id="bento-container">
+        <div class="bento-col-left">
+            <div class="bento-box small-box">
+                <div class="bento-label-badge">Input RGB</div>
+                <video id="b-top-left" class="bento-vid" muted loop playsinline preload="metadata">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            <div class="bento-box small-box">
+                <div class="bento-label-badge">Input Mask</div>
+                <video id="b-bot-left" class="bento-vid" muted loop playsinline preload="metadata">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="bento-col-right">
+            <div class="bento-box big-box">
+
+                <div class="bento-switch-button">
+                    <button type="button" id="btn-alpha" class="bento-btn active" onclick="switchBentoMain('alpha')">Pred. Alpha</button>
+                    <button type="button" id="btn-comp" class="bento-btn" onclick="switchBentoMain('comp')">Composition</button>
+                </div>
+                <div class="bento-label-badge">Result</div>
+                <video id="b-main" class="bento-vid" muted loop playsinline preload="metadata">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+    
+    <p class="caption"><strong>Figure 2.</strong> Qualitative results of VideoMaMa on in-the-wild videos. The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.</p>
+    
+    <div style="height: 15px;"></div>
+    <div class="gallery-title-container">
+        <h2 class="section-title">Choose a video</h2>
+    </div>
+    <section class="gallery-section">
+        <div class="gallery-grid" id="bento-gallery-grid">
+            </div>
+
+        <div class="pagination-controls">
+            <button class="nav-btn" id="bento-prev" onclick="changeBentoPage(-1)">&#8249;</button>
+            <span class="page-info" id="bento-page-info">Page 1 / 1</span>
+            <button class="nav-btn" id="bento-next" onclick="changeBentoPage(1)">&#8250;</button>
+        </div>
+    </section>
+<button class="nav-floating-btn btn-left" onclick="navigateBento(-1)">&#10094;</button>
+<button class="nav-floating-btn btn-right" onclick="navigateBento(1)">&#10095;</button>
+</div>
