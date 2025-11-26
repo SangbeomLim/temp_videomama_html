@@ -1295,7 +1295,7 @@
 <section class="section">
     <div class="container">
         <div class="paper-container">
-            <h2 class="section-title-header">VideoMaMa in-the-wild</h2>
+            <h2 class="section-title-header">VideoMaMa in-the-wild Results</h2>
             
             <div class="bento-wrapper" id="bento-container">
                 <div class="bento-col-left">
@@ -1327,7 +1327,7 @@
                 </div>
             </div>
             
-            <p class="caption"><strong>Figure 1.</strong> Qualitative results of VideoMaMa on in-the-wild videos. The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.</p>
+            <p class="caption"><strong>Qualitative results of VideoMaMa on in-the-wild videos.</strong> The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.</p>
             
             <div style="height: 15px;"></div>
             <div class="gallery-title-container">
@@ -1365,7 +1365,7 @@
 <section class="section">
     <div class="container">
         <div class="paper-container">
-            <h2 class="section-title-header">Comparison of SA-V and MA-V</h2>
+            <h2 class="section-title-header">Matting Anything in Video (MA-V) Dataset</h2>
             <button class="nav-floating-btn btn-left" onclick="navigateComparison(-1)">&#10094;</button>
 
             <section class="compare-wrapper">
@@ -1432,7 +1432,12 @@
                     </div>
                 </div>
                 <p class="caption">
-                    <strong>Figure 2.</strong> Comparison of SA-V and MA-V. Click to pause and resume. 
+                    <strong>Comparison of SA-V and MA-V.</strong> 
+                    Prior Video Matting datasets contain at most hundreds of videos, predominantly focusing on human subjects captured in controlled environments or through manual annotation. 
+                    They create artificial scene compositions that differ fundamentally from natural video footage, limiting model generalization to real world scenarios.
+                    We introduce Matte Anything in Videos (MA-V), created by applying VideoMaMa to annotate SA-V’s diverse mask annotations. 
+                    MA-V provides 50,541 videos captured in natural settings, nearly 50× larger than existing real-video datasets.
+                    Move slider left and right to compare between SA-V and MA-V. Click to pause and resume.
                 </p>
                 <button class="nav-floating-btn btn-right" onclick="navigateComparison(1)">&#10095;</button>
             </section>
@@ -1526,7 +1531,7 @@
             </div> 
                 
             <p class="caption">
-                <strong>Figure 3.</strong> Qualitative comparison of VideoMaMa and SAM2-Matte with MaGGIe and MatAnyone on in-the-wild videos. The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.
+                <strong>Qualitative comparison of VideoMaMa and SAM2-Matte with MaGGIe and MatAnyone on in-the-wild videos.</strong> The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.
             </p>
             <div style="height: 30px;"></div> 
             <div class="gallery-title-container">
