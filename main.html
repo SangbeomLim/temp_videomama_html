@@ -1291,17 +1291,65 @@
         </div>
     </div>
 </section>
-
-<!-- In-the-Wild Results Section -->
-<section class="section" style="background-color: #ffffff;">
+<!-- In the Wild Section - Now first -->
+<section class="section">
     <div class="container">
-        <h2 class="section-title-header">VideoMaMa In-the-Wild Results</h2>
-    </div>
+        <div class="paper-container">
+            <h2 class="section-title-header">VideoMaMa in-the-wild</h2>
+            
+            <div class="bento-wrapper" id="bento-container">
+                <div class="bento-col-left">
+                    <div class="bento-box small-box">
+                        <div class="bento-label-badge">Input RGB</div>
+                        <video id="b-top-left" class="bento-vid" muted loop playsinline preload="metadata">
+                            <source src="" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="bento-box small-box">
+                        <div class="bento-label-badge">Input Mask</div>
+                        <video id="b-bot-left" class="bento-vid" muted loop playsinline preload="metadata">
+                            <source src="" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
 
-    <!-- Content loaded from external file -->
-    <div id="in-the-wild-section"></div>
+                <div class="bento-col-right">
+                    <div class="bento-box big-box">
+                        <div class="bento-switch-button">
+                            <button type="button" id="btn-alpha" class="bento-btn active" onclick="switchBentoMain('alpha')">Pred. Alpha</button>
+                            <button type="button" id="btn-comp" class="bento-btn" onclick="switchBentoMain('comp')">Composition</button>
+                        </div>
+                        <div class="bento-label-badge">Result</div>
+                        <video id="b-main" class="bento-vid" muted loop playsinline preload="metadata">
+                            <source src="" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="caption"><strong>Figure 1.</strong> Qualitative results of VideoMaMa on in-the-wild videos. The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.</p>
+            
+            <div style="height: 15px;"></div>
+            <div class="gallery-title-container">
+                <h2 class="section-title">Choose a video</h2>
+            </div>
+            <section class="gallery-section">
+                <div class="gallery-grid" id="bento-gallery-grid">
+                </div>
+
+                <div class="pagination-controls">
+                    <button class="nav-btn" id="bento-prev" onclick="changeBentoPage(-1)">&#8249;</button>
+                    <span class="page-info" id="bento-page-info">Page 1 / 1</span>
+                    <button class="nav-btn" id="bento-next" onclick="changeBentoPage(1)">&#8250;</button>
+                </div>
+            </section>
+            <button class="nav-floating-btn btn-left" onclick="navigateBento(-1)">&#10094;</button>
+            <button class="nav-floating-btn btn-right" onclick="navigateBento(1)">&#10095;</button>
+        </div>
+    </div>
 </section>
 
+<!-- Abstract Section -->
 <section class="section">
     <div class="container">
         <div class="paper-container">
@@ -1311,25 +1359,186 @@
             </p>
         </div>
     </div>
-
-<!-- SA-V vs MA-V Comparison Section -->
-<section class="section">
-    <div class="container">
-        <h2 class="section-title-header">Comparison of SA-V and MA-V</h2>
-    </div>
-    
-    <!-- Content loaded from external file -->
-    <div id="sav-mav-section"></div>
 </section>
 
-<!-- Qualitative Comparison Section -->
+<!-- SA-V vs MA-V Comparison Section - Now after Abstract -->
 <section class="section">
     <div class="container">
-        <h2 class="section-title-header">Qualitative Comparison</h2>
-    </div>
+        <div class="paper-container">
+            <h2 class="section-title-header">Comparison of SA-V and MA-V</h2>
+            <button class="nav-floating-btn btn-left" onclick="navigateComparison(-1)">&#10094;</button>
 
-    <!-- Content loaded from external file -->
-    <div id="qualitative-comparison-section"></div>
+            <section class="compare-wrapper">
+                <div class="compare-row">
+                    
+                    <div class="video-item-group">
+                    <div class="video-container">
+                        <video class="video-layer" muted loop playsinline autoplay style="position: relative; z-index: 1;">
+                            <source src="videos/sav_039607_manual_0_rgb.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-caption">Input Video</div>
+                    </div>
+
+                    <div class="video-item-group" id="slider-container-a">
+                    <div class="video-container with-slider">
+                        <video class="video-back video-layer" muted loop playsinline>
+                            <source src="videos/sav_039607_manual_0_rgb.mp4" type="video/mp4"> 
+                        </video>
+                        <video class="video-front video-layer" muted loop playsinline>
+                            <source src="videos/sav_039607_manual_0_pred_alpha.mp4" type="video/mp4"> 
+                        </video>
+                        <div class="video-overlay"></div>
+                        <div class="slider-ui">
+                            <div class="slider-line"></div>
+                            <div class="slider-handle"></div>
+                        </div>
+                        <div class="label-badge label-left">SA-V</div>
+                        <div class="label-badge label-right">MA-V</div>
+                        
+                        <div class="slider-active-labels">
+                            <div class="active-label label-left" id="active-label-a-left">SA-V</div>
+                            <div class="active-label label-right" id="active-label-a-right">MA-V</div>
+                        </div>
+
+                    </div>
+                    <div class="video-caption">Mask Comparison</div>
+                    </div>
+                    <div class="video-item-group" id="slider-container-b">
+                    <div class="video-container with-slider">
+                        <video class="video-back video-layer" muted loop playsinline>
+                            <source src="videos/sav_039607_manual_0_rgb.mp4" type="video/mp4"> 
+                        </video>
+                        <video class="video-front video-layer" muted loop playsinline>
+                            <source src="videos/sav_039607_manual_0_pred_alpha.mp4" type="video/mp4"> 
+                        </video>
+                        <div class="video-overlay"></div>
+
+                        <div class="slider-ui">
+                            <div class="slider-line"></div>
+                            <div class="slider-handle"></div>
+                        </div>
+
+                        <div class="label-badge label-left">SA-V</div>
+                        <div class="label-badge label-right">MA-V</div>
+
+                        <div class="slider-active-labels">
+                            <div class="active-label label-left" id="active-label-a-left">SA-V</div>
+                            <div class="active-label label-right" id="active-label-a-right">MA-V</div>
+                        </div>
+
+                    </div>
+                    <div class="video-caption">Composition</div>
+                    </div>
+                </div>
+                <p class="caption">
+                    <strong>Figure 2.</strong> Comparison of SA-V and MA-V. Click to pause and resume. 
+                </p>
+                <button class="nav-floating-btn btn-right" onclick="navigateComparison(1)">&#10095;</button>
+            </section>
+            <div class="gallery-title-container">
+                <h2 class="section-title">Choose a video</h2>
+            </div>
+            <section class="gallery-section">
+                <div class="gallery-grid" id="gallery-grid">
+                </div>
+
+                <div class="pagination-controls">
+                    <button class="nav-btn" id="btn-prev" onclick="changePage(-1)">&#8249;</button>
+                    <span class="page-info" id="page-info">Page 1 / 8</span>
+                    <button class="nav-btn" id="btn-next" onclick="changePage(1)">&#8250;</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- Qualitative Comparison Section - Now after SA-V vs MA-V -->
+<section class="section">
+    <div class="container">
+        <div class="paper-container">
+            <h2 class="section-title-header">Qualitative Comparison</h2>
+
+            <button class="nav-floating-btn btn-left" onclick="navigateNewLayout(-1)">&#10094;</button>
+            <div class="master-wrapper" id="master-layout-container">
+
+                <div class="global-mode-switch-container">
+                    <div class="mode-switch-button global-mode">
+                        <button type="button" id="nl-global-alpha" class="mode-btn active" onclick="switchGlobalMode('alpha')">Pred. Alpha</button>
+                        <button type="button" id="nl-global-comp" class="mode-btn" onclick="switchGlobalMode('comp')">Composition</button>
+                    </div>
+                </div>
+                
+                <div class="layout-section input-section">
+                    <div class="input-video-container twin-container">
+                        <div class="compare-section-title">Input</div>
+                        
+                        <div class="model-video-box input-box">
+                            <div class="bento-label-badge label-center" style = "bottom:6px">Input RGB</div>
+                            <video id="nl-input-rgb" class="content-vid" muted loop playsinline preload="metadata">
+                            </video>
+                        </div>
+                        
+                        <div class="model-video-box input-box mask-box">
+                            <div class="bento-label-badge label-center" style = "bottom:6px">Input Mask</div>
+                            <video id="nl-input-mask" class="content-vid" muted loop playsinline preload="metadata">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-group-wrapper">
+
+                    <div class="layout-section comparison-section comp-1">
+                        <div class="compare-section-title">All-frame mask-guided </div>
+
+                        <div class="model-video-box">
+                            <div class="bento-label-badge label-center">MaGGIe</div>
+                            <video id="nl-model-1" class="content-vid" muted loop playsinline preload="metadata">
+                            </video>
+                        </div>
+
+                        <div class="model-video-box">
+                            <div class="bento-label-badge label-center">VideoMaMa (Ours)</div>
+                            <video id="nl-model-2" class="content-vid" muted loop playsinline preload="metadata">
+                                <source src="" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="layout-section comparison-section comp-2">
+                        <div class="compare-section-title">First-frame mask-guided</div>
+
+                        <div class="model-video-box">
+                            <div class="bento-label-badge label-center">MatAnyone</div>
+                            <video id="nl-model-3" class="content-vid" muted loop playsinline preload="metadata">
+                            </video>
+                        </div>
+
+                        <div class="model-video-box">
+                            <div class="bento-label-badge label-center">SAM2-Matte (Ours)</div>
+                            <video id="nl-model-4" class="content-vid" muted loop playsinline preload="metadata">
+                            </video>
+                        </div>
+                    </div>
+
+                </div>
+            </div> 
+                
+            <p class="caption">
+                <strong>Figure 3.</strong> Qualitative comparison of VideoMaMa and SAM2-Matte with MaGGIe and MatAnyone on in-the-wild videos. The input masks are generated using SAM2 by manually providing a point prompt on the first frame. Click to pause or resume.
+            </p>
+            <div style="height: 30px;"></div> 
+            <div class="gallery-title-container">
+                <h2 class="section-title">Choose a video</h2>
+            </div>
+            <section class="gallery-section">
+                <div class="gallery-grid" id="compare-gallery-grid">
+                </div>
+            </section>
+            <button class="nav-floating-btn btn-right" onclick="navigateNewLayout(1)">&#10095;</button>
+        </div>
+    </div>
 </section>
 
 <section class="section">
@@ -1351,7 +1560,10 @@
             <div style="text-align: center; margin-top: 20px;">
                 <img src="assets/videomama_quan.png" alt="VideoMaMa Quantitative" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
             </div>
-            We evaluate video matting performance across different difficulty levels in V-HIM60. The best and second-best results are highlighted.
+            All-frame mask-guided video matting comparison on V-HIM60 and YouTubeMatte benchmarks. We compare VideoMaMa
+            (Ours) against mask-guided matting methods: MaGGIe (video mask-guided) and MGM (image mask-guided). We evaluate on
+            two mask types: Synthetically Degraded Masks including downsampling (8×, 32×) and polygonization with varying difficulty levels, and
+            Model-Generated Masks from SAM2. Lower values indicate better performance.
         </div>
     </div>
 </section>
@@ -1363,78 +1575,690 @@
     </div>
 </footer>
 
-<!-- Load video data arrays from external files -->
-<script src="data/videoData.js"></script>
-<script src="data/bentoData.js"></script>
-<script src="data/newLayoutData.js"></script>
-
-<!-- Main application script -->
 <script>
-
-    // Load external HTML sections
-    async function loadSection(sectionId, filePath) {
-        try {
-            const response = await fetch(filePath);
-            if (!response.ok) {
-                throw new Error(`Failed to load ${filePath}: ${response.status}`);
-            }
-            const html = await response.text();
-            document.getElementById(sectionId).innerHTML = html;
-        } catch (error) {
-            console.error(`Error loading section ${sectionId}:`, error);
-            document.getElementById(sectionId).innerHTML = `<p style="color: red; text-align: center;">Failed to load section. Please refresh the page.</p>`;
-        }
-    }
-
-    // Load all sections when page loads
-    async function loadAllSections() {
-        await Promise.all([
-            loadSection('sav-mav-section', 'sections/sav_mav_comparison.html'),
-            loadSection('in-the-wild-section', 'sections/in_the_wild.html'),
-            loadSection('qualitative-comparison-section', 'sections/qualitative_comparison.html')
-        ]);
-        
-        // Initialize all interactive components after sections are loaded
-        initializeAllComponents();
-    }
-
-    // Initialize all components after sections load
-    function initializeAllComponents() {
-        // Initialize sliders
-        if (typeof initSyncedSliders === 'function') {
-            initSyncedSliders();
-        }
-        
-        // Load initial video sets
-        if (videoData && videoData.length > 0) {
-            loadVideoSet(0);
-        }
-        
-        if (bentoData && bentoData.length > 0) {
-            loadBentoSet(0);
-            renderBentoGallery();
-        }
-        
-        // Load new layout
-        const layoutContainer = document.getElementById('master-layout-container');
-        if (layoutContainer && newLayoutData && newLayoutData.length > 0) {
-            loadNewLayoutSet(0);
-        }
-        
-        // Setup bento container click handler
-        const bentoContainer = document.getElementById('bento-container');
-        if (bentoContainer) {
-            bentoContainer.addEventListener('click', toggleBentoPlay);
-            bentoContainer.style.cursor = 'pointer';
-        }
-    }
 
     const TEST_REF = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
     const TEST_IN  = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4";
     const TEST_OUT = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
 
-    // Video data arrays are loaded from external JS files
-    // See: data/videoData.js, data/bentoData.js, data/newLayoutData.js
+    const videoData = [
+        {
+            "id": 1,
+            "title": "# 1",
+            "ref": "mav_sav/0_sav_036684_manual_1_rgb.mp4",
+            "result1": "mav_sav/0_sav_036684_manual_1_mask.mp4",
+            "input1": "mav_sav/0_sav_036684_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_036684_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_036684_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 2,
+            "title": "# 2",
+            "ref": "mav_sav/0_sav_037832_manual_0_rgb.mp4",
+            "result1": "mav_sav/0_sav_037832_manual_0_mask.mp4",
+            "input1": "mav_sav/0_sav_037832_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_037832_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_037832_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 3,
+            "title": "# 3",
+            "ref": "mav_sav/0_sav_038251_manual_2_rgb.mp4",
+            "result1": "mav_sav/0_sav_038251_manual_2_mask.mp4",
+            "input1": "mav_sav/0_sav_038251_manual_2_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_038251_manual_2_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_038251_manual_2_pred_greenscreen.mp4"
+        },
+        {
+            "id": 4,
+            "title": "# 4",
+            "ref": "mav_sav/0_sav_040852_manual_0_rgb.mp4",
+            "result1": "mav_sav/0_sav_040852_manual_0_mask.mp4",
+            "input1": "mav_sav/0_sav_040852_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_040852_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_040852_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 5,
+            "title": "# 5",
+            "ref": "mav_sav/0_sav_040974_manual_5_rgb.mp4",
+            "result1": "mav_sav/0_sav_040974_manual_5_mask.mp4",
+            "input1": "mav_sav/0_sav_040974_manual_5_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_040974_manual_5_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_040974_manual_5_pred_greenscreen.mp4"
+        },
+        {
+            "id": 6,
+            "title": "# 6",
+            "ref": "mav_sav/0_sav_042715_manual_0_rgb.mp4",
+            "result1": "mav_sav/0_sav_042715_manual_0_mask.mp4",
+            "input1": "mav_sav/0_sav_042715_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_042715_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_042715_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 7,
+            "title": "# 7",
+            "ref": "mav_sav/0_sav_046702_manual_0_rgb.mp4",
+            "result1": "mav_sav/0_sav_046702_manual_0_mask.mp4",
+            "input1": "mav_sav/0_sav_046702_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_046702_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_046702_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 8,
+            "title": "# 8",
+            "ref": "mav_sav/0_sav_047034_manual_1_rgb.mp4",
+            "result1": "mav_sav/0_sav_047034_manual_1_mask.mp4",
+            "input1": "mav_sav/0_sav_047034_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_047034_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_047034_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 9,
+            "title": "# 9",
+            "ref": "mav_sav/0_sav_047229_manual_2_rgb.mp4",
+            "result1": "mav_sav/0_sav_047229_manual_2_mask.mp4",
+            "input1": "mav_sav/0_sav_047229_manual_2_pred_alpha.mp4",
+            "result2": "mav_sav/0_sav_047229_manual_2_mask_greenscreen.mp4",
+            "input2": "mav_sav/0_sav_047229_manual_2_pred_greenscreen.mp4"
+        },
+        {
+            "id": 10,
+            "title": "# 10",
+            "ref": "mav_sav/sav_036144_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_036144_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_036144_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_036144_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_036144_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 11,
+            "title": "# 11",
+            "ref": "mav_sav/sav_036646_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_036646_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_036646_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_036646_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_036646_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 12,
+            "title": "# 12",
+            "ref": "mav_sav/sav_036854_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_036854_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_036854_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_036854_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_036854_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 13,
+            "title": "# 13",
+            "ref": "mav_sav/sav_037303_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_037303_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_037303_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_037303_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_037303_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 14,
+            "title": "# 14",
+            "ref": "mav_sav/sav_037646_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_037646_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_037646_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_037646_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_037646_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 15,
+            "title": "# 15",
+            "ref": "mav_sav/sav_037892_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_037892_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_037892_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_037892_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_037892_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 16,
+            "title": "# 16",
+            "ref": "mav_sav/sav_037925_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_037925_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_037925_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_037925_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_037925_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 17,
+            "title": "# 17",
+            "ref": "mav_sav/sav_038109_manual_3_rgb.mp4",
+            "result1": "mav_sav/sav_038109_manual_3_mask.mp4",
+            "input1": "mav_sav/sav_038109_manual_3_pred_alpha.mp4",
+            "result2": "mav_sav/sav_038109_manual_3_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_038109_manual_3_pred_greenscreen.mp4"
+        },
+        {
+            "id": 18,
+            "title": "# 18",
+            "ref": "mav_sav/sav_038224_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_038224_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_038224_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_038224_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_038224_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 19,
+            "title": "# 19",
+            "ref": "mav_sav/sav_038251_manual_3_rgb.mp4",
+            "result1": "mav_sav/sav_038251_manual_3_mask.mp4",
+            "input1": "mav_sav/sav_038251_manual_3_pred_alpha.mp4",
+            "result2": "mav_sav/sav_038251_manual_3_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_038251_manual_3_pred_greenscreen.mp4"
+        },
+        {
+            "id": 20,
+            "title": "# 20",
+            "ref": "mav_sav/sav_038469_manual_3_rgb.mp4",
+            "result1": "mav_sav/sav_038469_manual_3_mask.mp4",
+            "input1": "mav_sav/sav_038469_manual_3_pred_alpha.mp4",
+            "result2": "mav_sav/sav_038469_manual_3_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_038469_manual_3_pred_greenscreen.mp4"
+        },
+        {
+            "id": 21,
+            "title": "# 21",
+            "ref": "mav_sav/sav_038994_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_038994_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_038994_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_038994_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_038994_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 22,
+            "title": "# 22",
+            "ref": "mav_sav/sav_039607_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_039607_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_039607_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_039607_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_039607_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 23,
+            "title": "# 23",
+            "ref": "mav_sav/sav_039607_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_039607_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_039607_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_039607_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_039607_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 24,
+            "title": "# 24",
+            "ref": "mav_sav/sav_039876_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_039876_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_039876_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_039876_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_039876_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 25,
+            "title": "# 25",
+            "ref": "mav_sav/sav_039898_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_039898_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_039898_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_039898_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_039898_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 26,
+            "title": "# 26",
+            "ref": "mav_sav/sav_040142_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_040142_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_040142_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_040142_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_040142_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 27,
+            "title": "# 27",
+            "ref": "mav_sav/sav_040506_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_040506_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_040506_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_040506_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_040506_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 28,
+            "title": "# 28",
+            "ref": "mav_sav/sav_040974_manual_4_rgb.mp4",
+            "result1": "mav_sav/sav_040974_manual_4_mask.mp4",
+            "input1": "mav_sav/sav_040974_manual_4_pred_alpha.mp4",
+            "result2": "mav_sav/sav_040974_manual_4_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_040974_manual_4_pred_greenscreen.mp4"
+        },
+        {
+            "id": 29,
+            "title": "# 29",
+            "ref": "mav_sav/sav_042054_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_042054_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_042054_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_042054_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_042054_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 30,
+            "title": "# 30",
+            "ref": "mav_sav/sav_042500_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_042500_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_042500_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_042500_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_042500_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 31,
+            "title": "# 31",
+            "ref": "mav_sav/sav_042551_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_042551_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_042551_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_042551_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_042551_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 32,
+            "title": "# 32",
+            "ref": "mav_sav/sav_042715_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_042715_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_042715_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_042715_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_042715_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 33,
+            "title": "# 33",
+            "ref": "mav_sav/sav_043360_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_043360_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_043360_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_043360_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_043360_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 34,
+            "title": "# 34",
+            "ref": "mav_sav/sav_043471_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_043471_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_043471_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_043471_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_043471_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 35,
+            "title": "# 35",
+            "ref": "mav_sav/sav_043471_manual_2_rgb.mp4",
+            "result1": "mav_sav/sav_043471_manual_2_mask.mp4",
+            "input1": "mav_sav/sav_043471_manual_2_pred_alpha.mp4",
+            "result2": "mav_sav/sav_043471_manual_2_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_043471_manual_2_pred_greenscreen.mp4"
+        },
+        {
+            "id": 36,
+            "title": "# 36",
+            "ref": "mav_sav/sav_043477_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_043477_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_043477_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_043477_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_043477_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 37,
+            "title": "# 37",
+            "ref": "mav_sav/sav_043523_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_043523_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_043523_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_043523_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_043523_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 38,
+            "title": "# 38",
+            "ref": "mav_sav/sav_044015_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_044015_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_044015_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_044015_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_044015_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 39,
+            "title": "# 39",
+            "ref": "mav_sav/sav_044725_manual_0_rgb.mp4",
+            "result1": "mav_sav/sav_044725_manual_0_mask.mp4",
+            "input1": "mav_sav/sav_044725_manual_0_pred_alpha.mp4",
+            "result2": "mav_sav/sav_044725_manual_0_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_044725_manual_0_pred_greenscreen.mp4"
+        },
+        {
+            "id": 40,
+            "title": "# 40",
+            "ref": "mav_sav/sav_044727_manual_2_rgb.mp4",
+            "result1": "mav_sav/sav_044727_manual_2_mask.mp4",
+            "input1": "mav_sav/sav_044727_manual_2_pred_alpha.mp4",
+            "result2": "mav_sav/sav_044727_manual_2_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_044727_manual_2_pred_greenscreen.mp4"
+        },
+        {
+            "id": 41,
+            "title": "# 41",
+            "ref": "mav_sav/sav_045102_manual_2_rgb.mp4",
+            "result1": "mav_sav/sav_045102_manual_2_mask.mp4",
+            "input1": "mav_sav/sav_045102_manual_2_pred_alpha.mp4",
+            "result2": "mav_sav/sav_045102_manual_2_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_045102_manual_2_pred_greenscreen.mp4"
+        },
+        {
+            "id": 42,
+            "title": "# 42",
+            "ref": "mav_sav/sav_045971_manual_2_rgb.mp4",
+            "result1": "mav_sav/sav_045971_manual_2_mask.mp4",
+            "input1": "mav_sav/sav_045971_manual_2_pred_alpha.mp4",
+            "result2": "mav_sav/sav_045971_manual_2_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_045971_manual_2_pred_greenscreen.mp4"
+        },
+        {
+            "id": 43,
+            "title": "# 43",
+            "ref": "mav_sav/sav_045980_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_045980_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_045980_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_045980_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_045980_manual_1_pred_greenscreen.mp4"
+        },
+        {
+            "id": 44,
+            "title": "# 44",
+            "ref": "mav_sav/sav_046013_manual_4_rgb.mp4",
+            "result1": "mav_sav/sav_046013_manual_4_mask.mp4",
+            "input1": "mav_sav/sav_046013_manual_4_pred_alpha.mp4",
+            "result2": "mav_sav/sav_046013_manual_4_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_046013_manual_4_pred_greenscreen.mp4"
+        },
+        {
+            "id": 45,
+            "title": "# 45",
+            "ref": "mav_sav/sav_046013_manual_5_rgb.mp4",
+            "result1": "mav_sav/sav_046013_manual_5_mask.mp4",
+            "input1": "mav_sav/sav_046013_manual_5_pred_alpha.mp4",
+            "result2": "mav_sav/sav_046013_manual_5_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_046013_manual_5_pred_greenscreen.mp4"
+        },
+        {
+            "id": 46,
+            "title": "# 46",
+            "ref": "mav_sav/sav_046104_manual_3_rgb.mp4",
+            "result1": "mav_sav/sav_046104_manual_3_mask.mp4",
+            "input1": "mav_sav/sav_046104_manual_3_pred_alpha.mp4",
+            "result2": "mav_sav/sav_046104_manual_3_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_046104_manual_3_pred_greenscreen.mp4"
+        },
+        {
+            "id": 47,
+            "title": "# 47",
+            "ref": "mav_sav/sav_046893_manual_1_rgb.mp4",
+            "result1": "mav_sav/sav_046893_manual_1_mask.mp4",
+            "input1": "mav_sav/sav_046893_manual_1_pred_alpha.mp4",
+            "result2": "mav_sav/sav_046893_manual_1_mask_greenscreen.mp4",
+            "input2": "mav_sav/sav_046893_manual_1_pred_greenscreen.mp4"
+        }
+    ];
+
+    const bentoData = [
+        {
+            "id": 1,
+            "title": "# 1",
+            "topLeft": "videomama/0_cheerleader_rgb.mp4",
+            "botLeft": "videomama/0_cheerleader_mask.mp4",
+            "main_alpha": "videomama/0_cheerleader_pred_alpha.mp4",
+            "main_comp": "videomama/0_cheerleader_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 2,
+            "title": "# 2",
+            "topLeft": "videomama/0_ad1aa270_rgb.mp4",
+            "botLeft": "videomama/0_ad1aa270_mask.mp4",
+            "main_alpha": "videomama/0_ad1aa270_pred_alpha.mp4",
+            "main_comp": "videomama/0_ad1aa270_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 3,
+            "title": "# 3",
+            "topLeft": "videomama/0_8cfc2be8_rgb.mp4",
+            "botLeft": "videomama/0_8cfc2be8_mask.mp4",
+            "main_alpha": "videomama/0_8cfc2be8_pred_alpha.mp4",
+            "main_comp": "videomama/0_8cfc2be8_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 4,
+            "title": "# 4",
+            "topLeft": "videomama/019020_rgb.mp4",
+            "botLeft": "videomama/019020_mask.mp4",
+            "main_alpha": "videomama/019020_pred_alpha.mp4",
+            "main_comp": "videomama/019020_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 5,
+            "title": "# 5",
+            "topLeft": "videomama/019031_rgb.mp4",
+            "botLeft": "videomama/019031_mask.mp4",
+            "main_alpha": "videomama/019031_pred_alpha.mp4",
+            "main_comp": "videomama/019031_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 6,
+            "title": "# 6",
+            "topLeft": "videomama/0_41c11e7f_rgb.mp4",
+            "botLeft": "videomama/0_41c11e7f_mask.mp4",
+            "main_alpha": "videomama/0_41c11e7f_pred_alpha.mp4",
+            "main_comp": "videomama/0_41c11e7f_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 7,
+            "title": "# 7",
+            "topLeft": "videomama/0_994ca115_rgb.mp4",
+            "botLeft": "videomama/0_994ca115_mask.mp4",
+            "main_alpha": "videomama/0_994ca115_pred_alpha.mp4",
+            "main_comp": "videomama/0_994ca115_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 8,
+            "title": "# 8",
+            "topLeft": "videomama/0_de7bf782_rgb.mp4",
+            "botLeft": "videomama/0_de7bf782_mask.mp4",
+            "main_alpha": "videomama/0_de7bf782_pred_alpha.mp4",
+            "main_comp": "videomama/0_de7bf782_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 9,
+            "title": "# 9",
+            "topLeft": "videomama/0_f12ccf3f_rgb.mp4",
+            "botLeft": "videomama/0_f12ccf3f_mask.mp4",
+            "main_alpha": "videomama/0_f12ccf3f_pred_alpha.mp4",
+            "main_comp": "videomama/0_f12ccf3f_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 10,
+            "title": "# 10",
+            "topLeft": "videomama/0_karina_3_rgb.mp4",
+            "botLeft": "videomama/0_karina_3_mask.mp4",
+            "main_alpha": "videomama/0_karina_3_pred_alpha.mp4",
+            "main_comp": "videomama/0_karina_3_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 11,
+            "title": "# 11",
+            "topLeft": "videomama/387dc903_rgb.mp4",
+            "botLeft": "videomama/387dc903_mask.mp4",
+            "main_alpha": "videomama/387dc903_pred_alpha.mp4",
+            "main_comp": "videomama/387dc903_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 12,
+            "title": "# 12",
+            "topLeft": "videomama/4dc4f8ae_rgb.mp4",
+            "botLeft": "videomama/4dc4f8ae_mask.mp4",
+            "main_alpha": "videomama/4dc4f8ae_pred_alpha.mp4",
+            "main_comp": "videomama/4dc4f8ae_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 13,
+            "title": "# 13",
+            "topLeft": "videomama/5d426018_rgb.mp4",
+            "botLeft": "videomama/5d426018_mask.mp4",
+            "main_alpha": "videomama/5d426018_pred_alpha.mp4",
+            "main_comp": "videomama/5d426018_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 14,
+            "title": "# 14",
+            "topLeft": "videomama/6be7a0ff_rgb.mp4",
+            "botLeft": "videomama/6be7a0ff_mask.mp4",
+            "main_alpha": "videomama/6be7a0ff_pred_alpha.mp4",
+            "main_comp": "videomama/6be7a0ff_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 15,
+            "title": "# 15",
+            "topLeft": "videomama/738d5a70_rgb.mp4",
+            "botLeft": "videomama/738d5a70_mask.mp4",
+            "main_alpha": "videomama/738d5a70_pred_alpha.mp4",
+            "main_comp": "videomama/738d5a70_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 16,
+            "title": "# 16",
+            "topLeft": "videomama/87ac746d_rgb.mp4",
+            "botLeft": "videomama/87ac746d_mask.mp4",
+            "main_alpha": "videomama/87ac746d_pred_alpha.mp4",
+            "main_comp": "videomama/87ac746d_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 17,
+            "title": "# 17",
+            "topLeft": "videomama/965299f9_rgb.mp4",
+            "botLeft": "videomama/965299f9_mask.mp4",
+            "main_alpha": "videomama/965299f9_pred_alpha.mp4",
+            "main_comp": "videomama/965299f9_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 18,
+            "title": "# 18",
+            "topLeft": "videomama/a878ef19_rgb.mp4",
+            "botLeft": "videomama/a878ef19_mask.mp4",
+            "main_alpha": "videomama/a878ef19_pred_alpha.mp4",
+            "main_comp": "videomama/a878ef19_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 19,
+            "title": "# 19",
+            "topLeft": "videomama/d65b1313_rgb.mp4",
+            "botLeft": "videomama/d65b1313_mask.mp4",
+            "main_alpha": "videomama/d65b1313_pred_alpha.mp4",
+            "main_comp": "videomama/d65b1313_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 20,
+            "title": "# 20",
+            "topLeft": "videomama/f2473ff4_rgb.mp4",
+            "botLeft": "videomama/f2473ff4_mask.mp4",
+            "main_alpha": "videomama/f2473ff4_pred_alpha.mp4",
+            "main_comp": "videomama/f2473ff4_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 21,
+            "title": "# 21",
+            "topLeft": "videomama/karina_1_rgb.mp4",
+            "botLeft": "videomama/karina_1_mask.mp4",
+            "main_alpha": "videomama/karina_1_pred_alpha.mp4",
+            "main_comp": "videomama/karina_1_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 22,
+            "title": "# 22",
+            "topLeft": "videomama/karina_2_rgb.mp4",
+            "botLeft": "videomama/karina_2_mask.mp4",
+            "main_alpha": "videomama/karina_2_pred_alpha.mp4",
+            "main_comp": "videomama/karina_2_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 23,
+            "title": "# 23",
+            "topLeft": "videomama/videoplayback_3_rgb.mp4",
+            "botLeft": "videomama/videoplayback_3_mask.mp4",
+            "main_alpha": "videomama/videoplayback_3_pred_alpha.mp4",
+            "main_comp": "videomama/videoplayback_3_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        },
+        {
+            "id": 24,
+            "title": "# 24",
+            "topLeft": "videomama/019006_rgb.mp4",
+            "botLeft": "videomama/019006_mask.mp4",
+            "main_alpha": "videomama/019006_pred_alpha.mp4",
+            "main_comp": "videomama/019006_pred_greenscreen.mp4",
+            "current_view": "alpha"
+        }
+    ];
+
+    const newLayoutData = [
+        {
+            "input_rgb": "comparison/ed4e023a_rgb.mp4",
+            "input_mask": "comparison/ed4e023a_mask.mp4",
+            "models": [
+                { "alpha": "comparison/Maggie/ed4e023a_pred_alpha.mp4", "comp": "comparison/Maggie/ed4e023a_pred_greenscreen.mp4" },
+                { "alpha": "comparison/videomama/ed4e023a_pred_alpha.mp4", "comp": "comparison/videomama/ed4e023a_pred_greenscreen.mp4" },
+                { "alpha": "comparison/MatAnyone/ed4e023a_pred_alpha.mp4", "comp": "comparison/MatAnyone/ed4e023a_pred_greenscreen.mp4" },
+                { "alpha": "comparison/mav_mask/ed4e023a_pred_alpha.mp4", "comp": "comparison/mav_mask/ed4e023a_pred_greenscreen.mp4" }
+            ]
+        },
+        {
+            "input_rgb": "comparison/karina_rgb.mp4",
+            "input_mask": "comparison/karina_mask.mp4",
+            "models": [
+                { "alpha": "comparison/Maggie/karina_pred_alpha.mp4", "comp": "comparison/Maggie/karina_pred_greenscreen.mp4" },
+                { "alpha": "comparison/videomama/karina_pred_alpha.mp4", "comp": "comparison/videomama/karina_pred_greenscreen.mp4" },
+                { "alpha": "comparison/MatAnyone/karina_pred_alpha.mp4", "comp": "comparison/MatAnyone/karina_pred_greenscreen.mp4" },
+                { "alpha": "comparison/mav_mask/karina_pred_alpha.mp4", "comp": "comparison/mav_mask/karina_pred_greenscreen.mp4" }
+            ]
+        },
+        {
+            "input_rgb": "comparison/basket_rgb.mp4",
+            "input_mask": "comparison/basket_mask.mp4",
+            "models": [
+                { "alpha": "comparison/Maggie/basket_pred_alpha.mp4", "comp": "comparison/Maggie/basket_pred_greenscreen.mp4" },
+                { "alpha": "comparison/videomama/basket_pred_alpha.mp4", "comp": "comparison/videomama/basket_pred_greenscreen.mp4" },
+                { "alpha": "comparison/MatAnyone/basket_pred_alpha.mp4", "comp": "comparison/MatAnyone/basket_pred_greenscreen.mp4" },
+                { "alpha": "comparison/mav_mask/basket_pred_alpha.mp4", "comp": "comparison/mav_mask/basket_pred_greenscreen.mp4" }
+            ]
+        }
+    ];
+
 
     const ITEMS_PER_PAGE = 12;
     let currentPage = 0;
@@ -2330,15 +3154,23 @@
         m.ontimeupdate=()=>{if(m.paused)return; s.forEach(x=>{if(x&&Math.abs(x.currentTime-m.currentTime)>0.05)x.currentTime=m.currentTime;});};
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Load all sections first
-        await loadAllSections();
-        
-        // Setup window resize handler
+    document.addEventListener('DOMContentLoaded', () => {
+        initSyncedSliders();
+        if (videoData.length > 0) loadVideoSet(0);
         window.addEventListener('resize', () => {
             document.querySelectorAll('.video-container.with-slider').forEach(c => updateContainerLayout(c));
             syncSliderPositions();
         });
+        if(bentoData.length > 0) { loadBentoSet(0); renderBentoGallery(); }
+        const bentoContainer = document.getElementById('bento-container');
+        if (bentoContainer) {
+            bentoContainer.addEventListener('click', toggleBentoPlay);
+            bentoContainer.style.cursor = 'pointer'; 
+        }
+        const layoutContainer = document.getElementById('master-layout-container');
+        if (layoutContainer) {
+            loadNewLayoutSet(0);
+        }
     });
 
 </script>
