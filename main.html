@@ -622,8 +622,25 @@
             width: 80%;
             aspect-ratio: 5 / 3; 
             gap: 15px; 
-            margin: 0 auto 50px auto;        
-            }
+            margin: 0 auto 50px auto;
+            transition: all 0.3s ease;
+        }
+        
+        /* Adaptive sizing based on video aspect ratio */
+        .bento-wrapper.portrait-video {
+            width: 60%;
+            aspect-ratio: 3 / 4;
+        }
+        
+        .bento-wrapper.landscape-video {
+            width: 85%;
+            aspect-ratio: 16 / 9;
+        }
+        
+        .bento-wrapper.square-video {
+            width: 70%;
+            aspect-ratio: 1 / 1;
+        }
 
         .bento-col-left {
             display: flex;
@@ -680,6 +697,13 @@
                 flex-direction: column;
                 aspect-ratio: auto;
                 height: auto;
+                width: 95%;
+            }
+            .bento-wrapper.portrait-video,
+            .bento-wrapper.landscape-video,
+            .bento-wrapper.square-video {
+                width: 95%;
+                aspect-ratio: auto;
             }
             .bento-col-left { flex-direction: row; aspect-ratio: 2/1; }
             .bento-col-right { aspect-ratio: 16/9; }
@@ -2467,6 +2491,9 @@
                 if(cnt === vs.length) {
                     syncBentoVideos(vMain, [vTL, vBL]);
                     
+                    // Detect aspect ratio and update wrapper class
+                    adjustBentoWrapperSize(vMain);
+                    
                     vs.forEach(x => { x.currentTime = 0; x.play().catch(()=>{}); });
                 }
             };
@@ -3171,6 +3198,9 @@
             const vBL = document.getElementById('b-bot-left'); 
             syncBentoVideos(vMain, [vTL, vBL].filter(v => v));
             
+            // Adjust wrapper size based on new video aspect ratio
+            adjustBentoWrapperSize(vMain);
+            
             vMain.onloadedmetadata = null;
         };
         
@@ -3187,6 +3217,35 @@
         
         if (btnAlpha) btnAlpha.classList.toggle('active', viewType === 'alpha');
         if (btnComp) btnComp.classList.toggle('active', viewType === 'comp');
+    }
+    
+    function adjustBentoWrapperSize(video) {
+        const wrapper = document.getElementById('bento-container');
+        if (!wrapper || !video) return;
+        
+        // Wait for video metadata to be loaded
+        if (video.videoWidth === 0 || video.videoHeight === 0) {
+            video.addEventListener('loadedmetadata', () => adjustBentoWrapperSize(video), { once: true });
+            return;
+        }
+        
+        const aspectRatio = video.videoWidth / video.videoHeight;
+        
+        // Remove existing aspect ratio classes
+        wrapper.classList.remove('portrait-video', 'landscape-video', 'square-video');
+        
+        // Apply appropriate class based on aspect ratio
+        if (aspectRatio < 0.75) {
+            // Portrait (height > width significantly)
+            wrapper.classList.add('portrait-video');
+        } else if (aspectRatio > 1.4) {
+            // Landscape (width > height significantly)
+            wrapper.classList.add('landscape-video');
+        } else if (aspectRatio >= 0.9 && aspectRatio <= 1.1) {
+            // Square-ish
+            wrapper.classList.add('square-video');
+        }
+        // Otherwise, use default styling (no additional class)
     }
 
     function syncGroup(m, s){
