@@ -2578,7 +2578,7 @@
         };
 
         allVideos.forEach(video => {
-            video.playbackRate = 3; // Set playback speed
+            video.playbackRate = 2; // Set playback speed
             if (video.readyState >= 3) {
                 loadedCount++;
                 checkAllLoaded();
@@ -2623,7 +2623,7 @@
         vs.forEach(v => {
             v.load();
             v.muted = true;
-            v.playbackRate = 3; // Set playback speed for new videos
+            v.playbackRate = 2s; // Set playback speed for new videos
             const check = () => {
                 cnt++; 
                 if(cnt === vs.length) {
@@ -3411,7 +3411,7 @@
         }
         
         // Set playback speed for all videos (makes them play faster)
-        setGlobalPlaybackSpeed(3); // 1.5x speed - adjust as needed
+        setGlobalPlaybackSpeed(2); // 1.5x speed - adjust as needed
         
         // Handle loading screen with actual content tracking
         handleLoadingScreen();
