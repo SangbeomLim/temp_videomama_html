@@ -2578,6 +2578,7 @@
         };
 
         allVideos.forEach(video => {
+            video.playbackRate = 1.5; // Set playback speed
             if (video.readyState >= 3) {
                 loadedCount++;
                 checkAllLoaded();
@@ -2621,7 +2622,8 @@
         
         vs.forEach(v => {
             v.load();
-            v.muted = true; 
+            v.muted = true;
+            v.playbackRate = 1.5; // Set playback speed for new videos
             const check = () => {
                 cnt++; 
                 if(cnt === vs.length) {
@@ -3408,22 +3410,58 @@
             loadNewLayoutSet(0);
         }
         
-        // Handle loading screen
+        // Set playback speed for all videos (makes them play faster)
+        setGlobalPlaybackSpeed(1.5); // 1.5x speed - adjust as needed
+        
+        // Handle loading screen with actual content tracking
         handleLoadingScreen();
     });
     
+    function setGlobalPlaybackSpeed(speed) {
+        // Set playback speed for all video elements on the page
+        document.querySelectorAll('video').forEach(video => {
+            video.playbackRate = speed;
+        });
+        
+        console.log(`Global playback speed set to ${speed}x`);
+    }
+    
     function handleLoadingScreen() {
         const loadingScreen = document.getElementById('loading-screen');
+        const loadingText = document.querySelector('.loader-text');
         const body = document.body;
         const minimumLoadTime = 3000; // 3 seconds minimum
         const startTime = Date.now();
         
-        // Function to hide loading screen
-        function hideLoader() {
-            const elapsedTime = Date.now() - startTime;
-            const remainingTime = Math.max(0, minimumLoadTime - elapsedTime);
-            
-            setTimeout(() => {
+        let contentReady = false;
+        let minTimeReached = false;
+        
+        // Track loading progress
+        let loadingStatus = {
+            dom: false,
+            videos: false,
+            images: false
+        };
+        
+        // Update loading text
+        function updateLoadingText(text) {
+            if (loadingText) {
+                loadingText.textContent = text;
+            }
+        }
+        
+        // Check if all content is ready
+        function checkContentReady() {
+            if (loadingStatus.dom && loadingStatus.videos && loadingStatus.images) {
+                contentReady = true;
+                updateLoadingText('Content ready!');
+                tryHideLoader();
+            }
+        }
+        
+        // Function to hide loading screen only when both conditions are met
+        function tryHideLoader() {
+            if (contentReady && minTimeReached) {
                 loadingScreen.classList.add('fade-out');
                 body.classList.remove('loading');
                 body.classList.add('loaded');
@@ -3434,22 +3472,133 @@
                         loadingScreen.parentNode.removeChild(loadingScreen);
                     }
                 }, 500); // Match the CSS transition duration
-            }, remainingTime);
+            }
         }
         
-        // Check if page is already loaded
-        if (document.readyState === 'complete') {
-            hideLoader();
+        // Minimum time timer
+        setTimeout(() => {
+            minTimeReached = true;
+            tryHideLoader();
+        }, minimumLoadTime);
+        
+        // Track DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                loadingStatus.dom = true;
+                updateLoadingText('Loading videos...');
+                checkContentReady();
+            });
         } else {
-            window.addEventListener('load', hideLoader);
+            loadingStatus.dom = true;
         }
         
-        // Fallback: force hide after 5 seconds regardless
+        // Track critical videos (the ones that load initially)
+        function trackInitialVideos() {
+            updateLoadingText('Preparing videos...');
+            
+            // Get all video elements that should be loaded initially
+            const criticalVideos = Array.from(document.querySelectorAll('video')).slice(0, 8); // Track first 8 videos
+            
+            if (criticalVideos.length === 0) {
+                loadingStatus.videos = true;
+                checkContentReady();
+                return;
+            }
+            
+            let videosLoaded = 0;
+            const totalVideos = criticalVideos.length;
+            
+            criticalVideos.forEach(video => {
+                const checkVideo = () => {
+                    videosLoaded++;
+                    updateLoadingText(`Loading videos (${videosLoaded}/${totalVideos})...`);
+                    
+                    if (videosLoaded >= totalVideos) {
+                        loadingStatus.videos = true;
+                        checkContentReady();
+                    }
+                };
+                
+                // Check if already loaded
+                if (video.readyState >= 3) { // HAVE_FUTURE_DATA or better
+                    checkVideo();
+                } else {
+                    video.addEventListener('loadeddata', checkVideo, { once: true });
+                    // Fallback if video fails to load
+                    video.addEventListener('error', checkVideo, { once: true });
+                }
+            });
+            
+            // Safety timeout for videos - don't wait forever
+            setTimeout(() => {
+                if (!loadingStatus.videos) {
+                    console.log('Video loading timeout - proceeding anyway');
+                    loadingStatus.videos = true;
+                    checkContentReady();
+                }
+            }, 4000); // 4 second timeout for videos
+        }
+        
+        // Track images
+        function trackImages() {
+            const images = Array.from(document.querySelectorAll('img'));
+            
+            if (images.length === 0) {
+                loadingStatus.images = true;
+                checkContentReady();
+                return;
+            }
+            
+            let imagesLoaded = 0;
+            const totalImages = images.length;
+            
+            images.forEach(img => {
+                if (img.complete) {
+                    imagesLoaded++;
+                } else {
+                    img.addEventListener('load', () => {
+                        imagesLoaded++;
+                        if (imagesLoaded >= totalImages) {
+                            loadingStatus.images = true;
+                            checkContentReady();
+                        }
+                    }, { once: true });
+                    img.addEventListener('error', () => {
+                        imagesLoaded++;
+                        if (imagesLoaded >= totalImages) {
+                            loadingStatus.images = true;
+                            checkContentReady();
+                        }
+                    }, { once: true });
+                }
+            });
+            
+            if (imagesLoaded >= totalImages) {
+                loadingStatus.images = true;
+                checkContentReady();
+            }
+        }
+        
+        // Wait for window load event, then start tracking videos
+        if (document.readyState === 'complete') {
+            trackInitialVideos();
+            trackImages();
+        } else {
+            window.addEventListener('load', () => {
+                trackInitialVideos();
+                trackImages();
+            });
+        }
+        
+        // Ultimate fallback: force hide after 6 seconds regardless
         setTimeout(() => {
             if (loadingScreen && !loadingScreen.classList.contains('fade-out')) {
-                hideLoader();
+                console.log('Fallback timeout reached - hiding loader');
+                contentReady = true;
+                minTimeReached = true;
+                tryHideLoader();
             }
-        }, 5000);
+        }, 6000);
     }
 
 </script>
