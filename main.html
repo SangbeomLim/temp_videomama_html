@@ -1504,15 +1504,15 @@
                             </span>
 
                             <!-- Video Link -->
-                            <!-- <span class="link-block">
-                                <a href="#" target="_blank"
+                            <span class="link-block">
+                                <a href="https://www.youtube.com/watch?v=FLIJaIeY8DU&embeds_referring_euri=https%3A%2F%2Fsangbeomlim.github.io%2F&source_ve_path=Mjg2NjY" target="_blank"
                                    class="external-link button is-normal is-rounded is-dark">
                                     <span class="icon">
                                         <i class="fab fa-youtube"></i>
                                     </span>
                                     <span>Video</span>
                                 </a>
-                            </span> -->
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1527,7 +1527,7 @@
         <div class="paper-container">
             <h2 class="section-title-header">Presentation Video</h2>
             
-            <div class="video-responsive-wrapper">
+            <div class="video-responsive-wrapper" id="youtube-wrapper" onmouseenter="focusVideo()">
                 <iframe 
                     src="https://www.youtube.com/embed/FLIJaIeY8DU" 
                     title="VideoMaMa Presentation" 
@@ -2500,7 +2500,7 @@
             "input_rgb": "comparison/ed4e023a_rgb.mp4",
             "input_mask": "comparison/ed4e023a_mask.mp4",
             "models": [
-                { "alpha": "comparison/Maggie/ed4e023a_pred_alpha.mp4", "comp": "comparison/Maggie/ed4e023a_pred_greenscreen.mp4" },
+                { "alpha": "comparison/MaGGIe/ed4e023a_pred_alpha.mp4", "comp": "comparison/MaGGIe/ed4e023a_pred_greenscreen.mp4" },
                 { "alpha": "comparison/videomama/ed4e023a_pred_alpha.mp4", "comp": "comparison/videomama/ed4e023a_pred_greenscreen.mp4" },
                 { "alpha": "comparison/MatAnyone/ed4e023a_pred_alpha.mp4", "comp": "comparison/MatAnyone/ed4e023a_pred_greenscreen.mp4" },
                 { "alpha": "comparison/mav_mask/ed4e023a_pred_alpha.mp4", "comp": "comparison/mav_mask/ed4e023a_pred_greenscreen.mp4" }
@@ -2510,7 +2510,7 @@
             "input_rgb": "comparison/karina_rgb.mp4",
             "input_mask": "comparison/karina_mask.mp4",
             "models": [
-                { "alpha": "comparison/Maggie/karina_pred_alpha.mp4", "comp": "comparison/Maggie/karina_pred_greenscreen.mp4" },
+                { "alpha": "comparison/MaGGIe/karina_pred_alpha.mp4", "comp": "comparison/MaGGIe/karina_pred_greenscreen.mp4" },
                 { "alpha": "comparison/videomama/karina_pred_alpha.mp4", "comp": "comparison/videomama/karina_pred_greenscreen.mp4" },
                 { "alpha": "comparison/MatAnyone/karina_pred_alpha.mp4", "comp": "comparison/MatAnyone/karina_pred_greenscreen.mp4" },
                 { "alpha": "comparison/mav_mask/karina_pred_alpha.mp4", "comp": "comparison/mav_mask/karina_pred_greenscreen.mp4" }
@@ -2520,7 +2520,7 @@
             "input_rgb": "comparison/basket_rgb.mp4",
             "input_mask": "comparison/basket_mask.mp4",
             "models": [
-                { "alpha": "comparison/Maggie/basket_pred_alpha.mp4", "comp": "comparison/Maggie/basket_pred_greenscreen.mp4" },
+                { "alpha": "comparison/MaGGIe/basket_pred_alpha.mp4", "comp": "comparison/MaGGIe/basket_pred_greenscreen.mp4" },
                 { "alpha": "comparison/videomama/basket_pred_alpha.mp4", "comp": "comparison/videomama/basket_pred_greenscreen.mp4" },
                 { "alpha": "comparison/MatAnyone/basket_pred_alpha.mp4", "comp": "comparison/MatAnyone/basket_pred_greenscreen.mp4" },
                 { "alpha": "comparison/mav_mask/basket_pred_alpha.mp4", "comp": "comparison/mav_mask/basket_pred_greenscreen.mp4" }
@@ -2542,6 +2542,22 @@
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
 
+    
+    function focusVideo() {
+            const wrapper = document.getElementById('youtube-wrapper');
+            if (!wrapper) return;
+
+            // Calculate position to center the video vertically in the viewport
+            const rect = wrapper.getBoundingClientRect();
+            const absoluteTop = rect.top + window.scrollY;
+            const centerPosition = absoluteTop - (window.innerHeight / 2) + (rect.height / 2);
+
+            // Scroll smoothly to that position
+            window.scrollTo({
+                top: centerPosition,
+                behavior: 'smooth'
+            });
+        }
 
 
     function syncAllVideos() {
